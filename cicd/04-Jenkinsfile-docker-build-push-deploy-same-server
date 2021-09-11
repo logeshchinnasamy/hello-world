@@ -16,14 +16,14 @@ pipeline {
         stage('Docker Build') {
             steps {
                 script {
-                    docker.build("logeshlomii/hello-world:${0.1}")
+                    docker.build("logeshlomii/hello-world:0.1")
                 }
             }
         }
 	    stage('Pushing Docker Image to Dockerhub') {
             steps {
                 script {
-                    docker.withRegistry('https://registry.hub.docker.com', 'docker_credentials') {
+                    docker.withRegistry('https://registry.hub.docker.com', 'docker_credential') {
                         docker.image("logeshlomii/hello-world:0.1").push()
                         docker.image("logeshlomii/hello-world:0.1").push("latest")
                     }
