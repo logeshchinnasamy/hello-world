@@ -16,7 +16,7 @@ pipeline {
         stage('Docker Build') {
             steps {
                 script {
-                    docker.build("logeshlomii/hello-world:${TAG}")
+                    docker.build("logeshlomii/hello-world:1.1")
                 }
             }
         }
@@ -24,8 +24,8 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('https://registry.hub.docker.com', 'docker_credentials') {
-                        docker.image("logeshlomii/hello-world:${TAG}").push()
-                        docker.image("logeshlomii/hello-world:${TAG}").push("latest")
+                        docker.image("logeshlomii/hello-world:1.1").push()
+                        docker.image("logeshlomii/hello-world:1.1").push("latest")
                     }
                 }
             }
@@ -34,7 +34,7 @@ pipeline {
             steps {
                 sh "docker stop hello-world | true"
                 sh "docker rm hello-world | true"
-                sh "docker run --name hello-world -d -p 9000:8080 logeshlomii/hello-world:${TAG}"
+                sh "docker run --name hello-world -d -p 9000:8080 logeshlomii/hello-world:1.1"
             }
         }
     }
