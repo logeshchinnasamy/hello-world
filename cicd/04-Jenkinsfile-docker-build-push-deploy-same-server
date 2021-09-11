@@ -16,7 +16,7 @@ pipeline {
         stage('Docker Build') {
             steps {
                 script {
-                    docker.build("logeshlomii/v1:0.1")
+                    docker.build("logeshlomii/httpd:0.1")
                 }
             }
         }
