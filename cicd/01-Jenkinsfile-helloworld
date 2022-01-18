@@ -3,12 +3,12 @@ pipeline {
   stages {
     stage ('Build') {
       steps {
-        sh 'echo Hello Build stage'
+        sh 'echo Hello Build stage logesh'
       }
     }
     stage ('Test') {
       steps {
-        sh 'echo hello Test stage'
+        sh 'echo hello Test stage lomi'
       }
     }
   }
