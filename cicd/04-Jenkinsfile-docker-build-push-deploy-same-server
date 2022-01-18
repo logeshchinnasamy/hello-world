@@ -24,8 +24,8 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('https://registry.hub.docker.com', 'docker_credential') {
-                        docker.image("logeshlomii/hello-worldd:0.1").push()
-                        docker.image("logeshlomii/hello-worldd:0.1").push("latest")
+                        docker.image("logeshlomii/hello-worldd:0.2").push()
+                        docker.image("logeshlomii/hello-worldd:0.2").push("latest")
                     }
                 }
             }
