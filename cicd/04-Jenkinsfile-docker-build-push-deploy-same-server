@@ -16,7 +16,7 @@ pipeline {
         stage('Docker Build') {
             steps {
                 script {
-                    docker.build("logeshlomii/hello-world:0.1")
+                    docker.build("logeshlomii/hello-world:0.2")
                 }
             }
         }
@@ -34,7 +34,7 @@ pipeline {
             steps {
                 sh "docker stop hello-world | true"
                 sh "docker rm hello-world | true"
-                sh "docker run --name hello-world -d -p 9004:8080 logeshlomii/hello-world:0.1"
+                sh "docker run --name hello-world -d -p 9004:8080 logeshlomii/hello-world:0.2"
             }
         }
     }
