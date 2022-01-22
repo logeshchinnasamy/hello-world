@@ -34,7 +34,7 @@ pipeline {
             steps {
                 sh "docker stop hello-world | true"
                 sh "docker rm hello-world | true"
-                sh "docker run --name hello-world -d -p 9000:8080 https://logesh.jfrog.io//default-docker-local/hello-world:v1"
+                sh "docker run --name hello-world -d -p 8080:9000 https://logesh.jfrog.io//default-docker-local/hello-world:v1"
             }
         }
     }
