@@ -16,7 +16,7 @@ pipeline {
         stage('Docker Build') {
             steps {
                 script {
-                    docker.build("default-docker-local/hello-world:v1")
+                    docker.build("default-docker-local/hello-world:v8")
                 }
             }
         }
@@ -24,8 +24,8 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('https://logesh.jfrog.io/', 'artifactory-credential') {
-                        docker.image("default-docker-local:v1").push()
-                        docker.image("default-docker-local:v1").push("latest")
+                        docker.image("default-docker-local:v8").push()
+                        docker.image("default-docker-local:v8").push("latest")
                     }
                 }
             }
@@ -34,7 +34,7 @@ pipeline {
             steps {
                 sh "docker stop hello-world | true"
                 sh "docker rm hello-world | true"
-                sh "docker run --name hello-world -d -p 9004:8080 https://logesh.jfrog.io//default-docker-local/hello-world:v1"
+                sh "docker run --name hello-world -d -p 9004:8080 https://logesh.jfrog.io//default-docker-local/hello-world:v8"
             }
         }
     }
