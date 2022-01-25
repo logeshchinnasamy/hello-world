@@ -16,7 +16,7 @@ pipeline {
         stage('Docker Build') {
             steps {
                 script {
-                    docker.build("vigneshsweekaran/hello-world:${TAG}")
+                    docker.build("logeshlomii/hello-world:lomi")
                 }
             }
         }
@@ -24,8 +24,8 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('https://registry.hub.docker.com', 'docker_credential') {
-                        docker.image("vigneshsweekaran/hello-world:${TAG}").push()
-                        docker.image("vigneshsweekaran/hello-world:${TAG}").push("latest")
+                        docker.image("logeshlomii/hello-world:lomi").push()
+                        docker.image("logeshlomii/hello-world:lomi").push("latest")
                     }
                 }
             }
@@ -33,14 +33,14 @@ pipeline {
         stage('Deploy'){
             steps {
                 withCredentials([sshUserPrivateKey(credentialsId: 'vm-key', keyFileVariable: 'SSH_PRIVATE_KEY_PATH')]) {
-                    sh '''ssh -i $SSH_PRIVATE_KEY_PATH -o StrictHostKeyChecking=no ubuntu@dayal-test.letspractice.tk <<ENDSSH
+                    sh '''ssh -i $SSH_PRIVATE_KEY_PATH -o StrictHostKeyChecking=no logesh@35.225.187.50 <<ENDSSH
                         docker stop hello-world | true
                         docker rm hello-world | true
-                        docker run --name hello-world -d -p 9004:8080 vigneshsweekaran/hello-world:${TAG}
+                        docker run --name hello-world -d -p 9004:8080 logeshlomii/hello-world:lomi
 ENDSSH
                     '''
                     // Second way of putting the commands in single sh step
-                    // sh "ssh -i $SSH_PRIVATE_KEY_PATH -o StrictHostKeyChecking=no ubuntu@dayal-test.letspractice.tk 'docker stop hello-world | true && docker rm hello-world | true && docker run --name hello-world -d -p 9004:8080 vigneshsweekaran/hello-world:${TAG}'"
+                    // sh "ssh -i $SSH_PRIVATE_KEY_PATH -o StrictHostKeyChecking=no ubuntu@dayal-test.letspractice.tk 'docker stop hello-world | true && docker rm hello-world | true && docker run --name hello-world -d -p 9004:8080 logeshlomii/hello-world:lomi'"
                 }
             }
         }
