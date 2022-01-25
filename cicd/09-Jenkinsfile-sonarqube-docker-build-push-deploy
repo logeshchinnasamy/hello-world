@@ -29,16 +29,16 @@ pipeline {
         stage('Docker Build') {
             steps {
                 script {
-                    docker.build("vigneshsweekaran/hello-world:${TAG}")
+                    docker.build("logeshlomii/hello-world:sonar")
                 }
             }
         }
 	    stage('Pushing Docker Image to Dockerhub') {
             steps {
                 script {
-                    docker.withRegistry('https://registry.hub.docker.com', 'docker_credential') {
-                        docker.image("vigneshsweekaran/hello-world:${TAG}").push()
-                        docker.image("vigneshsweekaran/hello-world:${TAG}").push("latest")
+                    docker.withRegistry('https://registry.hub.docker.com', 'dochub_credential') {
+                        docker.image("logeshlomii/hello-world:sonar").push()
+                        docker.image("logeshlomii/hello-world:sonar").push("latest")
                     }
                 }
             }
@@ -47,7 +47,7 @@ pipeline {
             steps {
                 sh "docker stop hello-world | true"
                 sh "docker rm hello-world | true"
-                sh "docker run --name hello-world -d -p 9004:8080 vigneshsweekaran/hello-world:${TAG}"
+                sh "docker run --name hello-world -d -p 9004:8080 logeshlomii/hello-world:sonar"
             }
         }
     }
