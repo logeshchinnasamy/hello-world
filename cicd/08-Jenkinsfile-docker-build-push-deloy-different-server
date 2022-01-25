@@ -23,7 +23,7 @@ pipeline {
         stage('Pushing Docker Image to Dockerhub') {
             steps {
                 script {
-                    docker.withRegistry('https://registry.hub.docker.com', 'docker_credential') {
+                    docker.withRegistry('https://registry.hub.docker.com', 'dochub_credential') {
                         docker.image("logeshlomii/hello-world:lomi").push()
                         docker.image("logeshlomii/hello-world:lomi").push("latest")
                     }
