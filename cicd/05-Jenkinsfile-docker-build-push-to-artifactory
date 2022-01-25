@@ -24,8 +24,8 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('https://logesh.jfrog.io/', 'artifactory-credential') {
-                        docker.image("default-docker-local:0.1").push()
-                        docker.image("default-docker-local:0.1").push("latest")
+                        docker.image("default-docker-local/hello-world:0.1").push()
+                        docker.image("default-docker-local/hello-world:0.1").push("latest")
                     }
                 }
             }
