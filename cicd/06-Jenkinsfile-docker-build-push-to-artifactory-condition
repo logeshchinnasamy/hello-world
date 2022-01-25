@@ -22,10 +22,10 @@ pipeline {
             }
             steps {
                 script {
-                    docker.build("logeshlomii/hello-world:new")
+                    docker.build("logeshlomii/hello-world:lomi")
                     docker.withRegistry("https://registry.hub.docker.com", 'docker_credential') {
-                        docker.image("logeshlomii/hello-world:new").push()
-                        docker.image("logeshlomii/hello-world:new").push("latest")
+                        docker.image("logeshlomii/hello-world:lomi").push()
+                        docker.image("logeshlomii/hello-world:lomi").push("latest")
                     }
                 }
             }
@@ -38,8 +38,8 @@ pipeline {
                 script {
                     docker.build("default-docker-local/hello-world:new")
                     docker.withRegistry('https://logesh.jfrog.io', 'artifactory-credential') {
-                        docker.image("default-docker-local/hello-world:new").push()
-                        docker.image("default-docker-local/hello-world:new").push("latest")
+                        docker.image("default-docker-local/hello-world:lomi").push()
+                        docker.image("default-docker-local/hello-world:lomi").push("latest")
                     }
                 }
             }
