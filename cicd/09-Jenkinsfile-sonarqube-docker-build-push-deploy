@@ -6,6 +6,7 @@ pipeline {
     environment {
         DATE = new Date().format('yy.M')
         TAG = "${DATE}.${BUILD_NUMBER}"
+        scannerHome = tool 'sonar-scanner'
     }
     stages {
         stage ('Build') {
@@ -13,10 +14,11 @@ pipeline {
                 sh 'mvn clean package'
             }
         }
-	stage('SonarQube analysis') {
-             def scannerHome = tool name: 'sonar-scanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation';
-             withSonarQubeEnv('SonarQube') { 
-             sh "${scannerHome}/bin/sonar-scanner"
+	    stage('SonarQube analysis') {
+            steps {
+                withSonarQubeEnv('sonarqube') {
+                    sh "${scannerHome}/bin/sonar-scanner"
+                }
             }
         }
         stage("Quality gate") {
