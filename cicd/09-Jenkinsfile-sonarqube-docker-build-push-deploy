@@ -6,7 +6,7 @@ pipeline {
     environment {
         DATE = new Date().format('yy.M')
         TAG = "${DATE}.${BUILD_NUMBER}"
-        SONAR_SCANNER_HOME  = tool 'SonarQube Scanner 2.8'
+        SONAR_SCANNER_HOME  = tool 'Sonar-scanner'
     }
     stages {
         stage ('Build') {
