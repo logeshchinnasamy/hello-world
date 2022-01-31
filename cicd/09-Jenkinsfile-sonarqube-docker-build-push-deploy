@@ -6,7 +6,6 @@ pipeline {
     environment {
         DATE = new Date().format('yy.M')
         TAG = "${DATE}.${BUILD_NUMBER}"
-        scannerHome = tool 'sonar'
     }
     stages {
         stage ('Build') {
@@ -14,13 +13,16 @@ pipeline {
                 sh 'mvn clean package'
             }
         }
-	    stage('SonarQube analysis') {
-            steps {
-                withSonarQubeEnv('sonarqube') {
-                    sh "${scannerHome}/bin/sonar-scanner"
-                }
+         stage('SonarQube analysis') {
+           tools {
+            sonarQube 'SonarQube Scanner 2.8'
             }
+            steps {
+             withSonarQubeEnv('SonarQube Scanner') {
+              sh 'sonar-scanner'
         }
+      }
+    }
         stage("Quality gate") {
             steps {
                 waitForQualityGate abortPipeline: true
